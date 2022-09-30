@@ -269,7 +269,7 @@ var Page = {
           offsetL = this.left + this.W/2,
           offsetT = this.top + this.H/2;
       
-      console.log(avgL + ", " + avgT);
+      //console.log(avgL + ", " + avgT);
       
       
       for(var j = 0; j < pcB.UO.arr.length; j++){
@@ -319,7 +319,7 @@ var Page = {
           offsetL = this.left + this.W/2,
           offsetT = this.top + this.H/2;
       
-      console.log(avgL + ", " + avgT);
+      //console.log(avgL + ", " + avgT);
       
      
       for(var j = 0; j < pcC.UO.arr.length; j++){
