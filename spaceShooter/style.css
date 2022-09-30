@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  overflow: hidden;
+  cursor: none;
+}
+
+#canvas {
+  background-color: #111521;
+}
+/*# sourceMappingURL=style.css.map */

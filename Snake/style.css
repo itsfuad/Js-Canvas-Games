@@ -1,0 +1,66 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    position: fixed;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background: #f3fbfb;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    overscroll-behavior: contain;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+#canvas {
+    /* background: #DCFFDE;*/
+    background-color:#e9fcf6;
+    border: 10px solid #c8f5e0;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.pause{
+    position: fixed;
+    color: black;
+    font-size: 20px;
+    padding: 10px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    font-size: 40px;
+}
+.pause:hover{
+    cursor: pointer;
+}
+
+#gameovermsg{
+    display: none;
+}
+#gameovermsg.on{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+    background: rgba(255,255,255,0.8);
+}
+#gameovermsg .msg{
+    font-size: 50px;
+}
+#gameovermsg .msg:hover{
+    cursor: default;
+}
+#gameovermsg .reload:hover{
+    cursor: pointer;
+}

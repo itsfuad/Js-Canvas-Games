@@ -1,0 +1,144 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #23262e;
+  font-family: Arial, Helvetica, sans-serif;
+  overscroll-behavior: contain;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.title{
+    position: fixed;
+    top: 30px;
+    font-size: 40px;
+      z-index: 10;
+      color: white;
+}
+.hint{
+    position: fixed;
+    top: 80px;
+    font-size: 30px;
+      z-index: 10;
+      color: white;
+}
+#canvas {
+  position: absolute;
+  min-height: max-content;
+  min-width: max-content;
+  background-color: #EBEBEB;
+  display: -ms-grid;
+  display: grid;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+  grid-gap: 2px;
+      grid-template-columns: repeat(3, 1fr);
+  font-size: 80px;
+  z-index: 2;
+  overflow: hidden;
+}
+
+#canvas .cell {
+  font-family: 'Courier New', Courier, monospace;
+  position: relative;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 120px;
+  width: 120px;
+  
+  background: #23262e;
+}
+
+#canvas .cell:hover {
+  cursor: pointer;
+}
+
+.message {
+  z-index: 10;
+  position: absolute;
+  
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  border-radius: 3px;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+  -webkit-transform: scale(0) rotate(0);
+          transform: scale(0) rotate(0);
+          
+}
+
+.message .text {
+  position: relative;
+  font-size: 40px;
+}
+
+.message .close {
+  position: relative;
+  padding: 5px;
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+  font-size: 30px;
+}
+
+.message .close:hover {
+  cursor: pointer;
+  background: brown;
+}
+
+.message.active {
+  -webkit-transform: scale(1) rotate(360deg);
+          transform: scale(1) rotate(360deg);
+}
+/*# sourceMappingURL=style.css.map */
