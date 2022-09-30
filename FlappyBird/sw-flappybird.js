@@ -1,58 +1,41 @@
-const OFFLINE_VERSION = 1;
-const CACHE_NAME = "flappybird-offline";
-const OFFLINE_URL = "/flappybird";
-
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    (async () => {
-      await caches.keys().then(cacheNames => {
-        return Promise.all(
-          cacheNames.map(cache => {
-            if (cache !== CACHE_NAME+"-"+OFFLINE_VERSION) {
-              console.log('Service Worker: Clearing Old cache');
-              return caches.delete(cache);
-            }
-          })
-        );
-      });
-      const cache = await caches.open(CACHE_NAME+"-"+OFFLINE_VERSION);
-      await cache.add(new Request(OFFLINE_URL, { cache: "reload" }));
-    })()
-  );
-  self.skipWaiting();
+const cacheName = 'flappybird-v2';
+//Call Install Event
+self.addEventListener('install', (e) => {
+	console.log('Service Worker: Installed');
 });
 
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    (async () => {
-      if ("navigationPreload" in self.registration) {
-        await self.registration.navigationPreload.enable();
-      }
-    })()
-  );
-  self.clients.claim();
+//Call Activate Event
+self.addEventListener('activate', (e) => {
+	console.log('Service Worker: Activated');
+
+	//Remove Old Caches
+	e.waitUntil(
+		caches.keys().then(cacheNames => {
+			return Promise.all(
+				cacheNames.map(cache => {
+					if (cache !== cacheName){
+						console.log('Service Worker: Clearing Old cache');
+						return caches.delete(cache);
+					}
+				})
+			);
+		})
+	);
 });
 
-self.addEventListener("fetch", (event) => {
-  if (event.request.mode === "navigate") {
-    event.respondWith(
-      (async () => {
-        try {
-          const preloadResponse = await event.preloadResponse;
-          if (preloadResponse) {
-            return preloadResponse;
-          }
-          const networkResponse = await fetch(event.request);
-          return networkResponse;
-        } catch (error) {
 
-          console.log("Fetch failed; returning offline page instead.", error);
-
-          const cache = await caches.open(CACHE_NAME+"-"+OFFLINE_VERSION);
-          const cachedResponse = await cache.match(OFFLINE_URL);
-          return cachedResponse;
-        }
-      })()
-    );
-  }
+//Call fetch event
+self.addEventListener('fetch', e=> {
+	console.log('Service Worker: Fetching');
+	e.respondWith(
+		fetch(e.request)
+		.then(res => {
+			const resClone = res.clone();
+			caches.open(cacheName)
+			.then(cache => {
+				cache.put(e.request, resClone);
+			});
+			return res;
+		}).catch(err => caches.match(e.request).then(res => res))
+	);
 });
