@@ -965,7 +965,7 @@ function handleTouchMove(evt) {
     
     window.addEventListener('load', () => {
         navigator.serviceWorker
-        .register('sw-tetris.js?v=2')
+        .register('sw-tetris.js?v=3')
         .then(reg => console.log("Service Worker Registered"))
         .catch(err => console.log(`Service Worker: Error ${err}`));
     });
