@@ -276,7 +276,7 @@ if ('serviceWorker' in navigator){
     
     window.addEventListener('load', () => {
         navigator.serviceWorker
-        .register('sw-snake.js')
+        .register('sw-snake.js?v=2')
         .then(reg => console.log("Service Worker Registered"))
         .catch(err => console.log(`Service Worker: Error ${err}`));
     });

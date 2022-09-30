@@ -266,7 +266,7 @@ if ('serviceWorker' in navigator){
     
     window.addEventListener('load', () => {
         navigator.serviceWorker
-        .register('sw-flappybird.js')
+        .register('sw-flappybird.js?v=2')
         .then(reg => console.log("Service Worker Registered"))
         .catch(err => console.log(`Service Worker: Error ${err}`));
     });
