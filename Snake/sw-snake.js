@@ -1,6 +1,6 @@
 const OFFLINE_VERSION = 1;
 const CACHE_NAME = "snake-offline";
-const OFFLINE_URL = "/";
+const OFFLINE_URL = "/snake";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

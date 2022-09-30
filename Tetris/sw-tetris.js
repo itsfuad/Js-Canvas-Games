@@ -1,6 +1,6 @@
 const OFFLINE_VERSION = 1;
 const CACHE_NAME = "tetris-offline";
-const OFFLINE_URL = "/";
+const OFFLINE_URL = "/tetris";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
