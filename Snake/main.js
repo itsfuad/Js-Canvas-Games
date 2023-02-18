@@ -194,8 +194,6 @@ document.addEventListener('keydown', (evt)=>{
             directionX = 0 ;
             directionY = directionY == -20? -20 : 20;
             break;
-        default:
-            console.log('Key pressed: ', evt.key);
     }
    }
 });
