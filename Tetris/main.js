@@ -218,7 +218,7 @@ var Page = {
           offsetL = this.left + this.W/2,
           offsetT = this.top + this.H/2;
       
-      console.log(avgL + ", " + avgT);
+      //console.log(avgL + ", " + avgT);
       
      
       for(var j = 0; j < pcA.UO.arr.length; j++){
@@ -548,7 +548,7 @@ var Page = {
         this.ScoreHigh = this.ScoreCur;
         localStorage.setItem('tetris_high_score', this.ScoreHigh);
         Page.ScoreBarHigh.IsDirty = true;
-        console.log(this.ScoreHigh);
+        //console.log(this.ScoreHigh);
       }    
       
       this.IsAlive = false;
