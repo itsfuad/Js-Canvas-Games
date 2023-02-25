@@ -1,4 +1,4 @@
-var Page = {  
+let Page = {  
     IsSetup: false,
     
     body: document.getElementsByTagName('body')[0],
@@ -11,7 +11,7 @@ var Page = {
   
     WindowChanged: function() {
 
-      var bodyW = document.documentElement.clientWidth,
+      let bodyW = document.documentElement.clientWidth,
           bodyH = document.documentElement.clientHeight,
           newUnitW = (bodyW - (bodyW % 80)) / 16,
           newUnitH = (bodyH - (bodyH % 100)) / 20,
@@ -20,13 +20,13 @@ var Page = {
       this.unitSize = newUnitMin;
   
      
-      var rightLimit = 0,
+      let rightLimit = 0,
           bottomLimit = 0;
   
-      for(var i = 0; i < Page.AreaArr.length; i++){
+      for(let i = 0; i < Page.AreaArr.length; i++){
         Page.AreaArr[i].CalculateBounds();
   
-        var newRightLimit = Page.AreaArr[i].left + Page.AreaArr[i].W,
+        let newRightLimit = Page.AreaArr[i].left + Page.AreaArr[i].W,
             newBottomLimit = Page.AreaArr[i].top + Page.AreaArr[i].H;
   
         rightLimit = Math.max(newRightLimit, rightLimit);
@@ -37,7 +37,7 @@ var Page = {
       this.cvs.height = bottomLimit;
   
       
-      var topPos = (bodyH - bottomLimit) / 2,
+      let topPos = (bodyH - bottomLimit) / 2,
           leftPos = (bodyW / 2) - (this.Game.W / 2),
           rightOffset = bodyW - (leftPos + rightLimit) - this.unitSize * 0.5;       
   
@@ -68,14 +68,14 @@ var Page = {
       this.WindowChanged();
       
 
-      for(var i = 0; i < Page.AreaArr.length; i++){
+      for(let i = 0; i < Page.AreaArr.length; i++){
         Page.AreaArr[i].IsDirty = true;
       }
     },
   
    
     Update: function() {
-      for(var i = 0; i < Page.AreaArr.length; i++){
+      for(let i = 0; i < Page.AreaArr.length; i++){
         if (Page.AreaArr[i].IsDirty){
           Page.AreaArr[i].Draw();
           Page.AreaArr[i].IsDirty = false;
@@ -124,7 +124,7 @@ var Page = {
   Page.Game = new DrawAreaObj(0,0,10,20,function(){
     
 
-    var uDrawSize = Page.unitSize - 2,
+    let uDrawSize = Page.unitSize - 2,
         drawL,
         drawT;
   
@@ -133,11 +133,11 @@ var Page = {
     Page.ctx.fillRect(this.left, this.top, this.W, this.H); 
     
 
-    for(var i = 0; i < Player.StaticUnits.length; i++){
-      for(var j = 0; j < Player.StaticUnits[i].length; j++){
+    for(let i = 0; i < Player.StaticUnits.length; i++){
+      for(let j = 0; j < Player.StaticUnits[i].length; j++){
         
 
-        var uValue = Player.StaticUnits[i][j];
+        let uValue = Player.StaticUnits[i][j];
         
 
         if (uValue !== 0){
@@ -153,9 +153,9 @@ var Page = {
     
    
     if (Player.Pc.Cur !== 0 && Player.IsAlive){
-      var projColor = ColorWithAlpha(Player.Pc.Cur.color,0.1);   
+      let projColor = ColorWithAlpha(Player.Pc.Cur.color,0.1);   
       
-      for(var k = 0; k < Player.Pc.Cur.UO.arr.length; k++){
+      for(let k = 0; k < Player.Pc.Cur.UO.arr.length; k++){
         drawL = (Player.Pc.Cur.x + Player.Pc.Cur.UO.arr[k].x) * Page.unitSize + 1;
         drawT = (Player.Pc.Cur.y + Player.Pc.Cur.UO.arr[k].y) * Page.unitSize + 1;
         
@@ -182,7 +182,7 @@ var Page = {
   
   Page.UpcomingA = new DrawAreaObj(10.5,2.6,2.5,2.5,function(){
     
-    var uDrawSize = Math.floor(Page.unitSize / 2),
+    let uDrawSize = Math.floor(Page.unitSize / 2),
         pcA = Player.Pc.Upcoming[0];
     
 
@@ -193,14 +193,14 @@ var Page = {
     if (pcA !== 0){
       Page.ctx.fillStyle = pcA.color;
       
-      var totalL = 0, 
+      let totalL = 0, 
           totalT = 0, 
           countedL = [], 
           countedT = [];
       
      
-      for(var i = 0; i < pcA.UO.arr.length; i++){
-        var curX = pcA.UO.arr[i].x,
+      for(let i = 0; i < pcA.UO.arr.length; i++){
+        let curX = pcA.UO.arr[i].x,
             curY = pcA.UO.arr[i].y;
         
         if (countedL.indexOf(curX) < 0){
@@ -213,7 +213,7 @@ var Page = {
         }
       }
       
-      var avgL = uDrawSize * (totalL / countedL.length + 0.5),
+      let avgL = uDrawSize * (totalL / countedL.length + 0.5),
           avgT = uDrawSize * (totalT / countedT.length + 0.5),
           offsetL = this.left + this.W/2,
           offsetT = this.top + this.H/2;
@@ -221,8 +221,8 @@ var Page = {
       //console.log(avgL + ", " + avgT);
       
      
-      for(var j = 0; j < pcA.UO.arr.length; j++){
-        var drawL = Math.floor(offsetL - avgL + pcA.UO.arr[j].x * uDrawSize),
+      for(let j = 0; j < pcA.UO.arr.length; j++){
+        let drawL = Math.floor(offsetL - avgL + pcA.UO.arr[j].x * uDrawSize),
             drawT = Math.floor(offsetT - avgT + pcA.UO.arr[j].y * uDrawSize); 
         
         Page.ctx.fillRect(drawL,drawT,uDrawSize - 1,uDrawSize - 1);
@@ -233,7 +233,7 @@ var Page = {
   
   Page.UpcomingB = new DrawAreaObj(10.5,5.2,2.5,2.5,function(){
     
-    var uDrawSize = Math.floor(Page.unitSize / 2),
+    let uDrawSize = Math.floor(Page.unitSize / 2),
         pcB = Player.Pc.Upcoming[1];
     
 
@@ -244,14 +244,14 @@ var Page = {
     if (pcB !== 0){
       Page.ctx.fillStyle = pcB.color;
       
-      var totalL = 0, 
+      let totalL = 0, 
           totalT = 0, 
           countedL = [], 
           countedT = [];
       
       
-      for(var i = 0; i < pcB.UO.arr.length; i++){
-        var curX = pcB.UO.arr[i].x,
+      for(let i = 0; i < pcB.UO.arr.length; i++){
+        let curX = pcB.UO.arr[i].x,
             curY = pcB.UO.arr[i].y;
         
         if (countedL.indexOf(curX) < 0){
@@ -264,7 +264,7 @@ var Page = {
         }
       }
       
-      var avgL = uDrawSize * (totalL / countedL.length + 0.5),
+      let avgL = uDrawSize * (totalL / countedL.length + 0.5),
           avgT = uDrawSize * (totalT / countedT.length + 0.5),
           offsetL = this.left + this.W/2,
           offsetT = this.top + this.H/2;
@@ -272,8 +272,8 @@ var Page = {
       //console.log(avgL + ", " + avgT);
       
       
-      for(var j = 0; j < pcB.UO.arr.length; j++){
-        var drawL = Math.floor(offsetL - avgL + pcB.UO.arr[j].x * uDrawSize),
+      for(let j = 0; j < pcB.UO.arr.length; j++){
+        let drawL = Math.floor(offsetL - avgL + pcB.UO.arr[j].x * uDrawSize),
             drawT = Math.floor(offsetT - avgT + pcB.UO.arr[j].y * uDrawSize); 
         
         Page.ctx.fillRect(drawL,drawT,uDrawSize - 1,uDrawSize - 1);
@@ -284,7 +284,7 @@ var Page = {
   
   Page.UpcomingC = new DrawAreaObj(10.5,7.8,2.5,2.5,function(){
     
-    var uDrawSize = Math.floor(Page.unitSize / 2),
+    let uDrawSize = Math.floor(Page.unitSize / 2),
         pcC = Player.Pc.Upcoming[2];
     
 
@@ -295,13 +295,13 @@ var Page = {
     if (pcC !== 0){
       Page.ctx.fillStyle = pcC.color;
       
-      var totalL = 0, 
+      let totalL = 0, 
           totalT = 0, 
           countedL = [], 
           countedT = [];
       
-      for(var i = 0; i < pcC.UO.arr.length; i++){
-        var curX = pcC.UO.arr[i].x,
+      for(let i = 0; i < pcC.UO.arr.length; i++){
+        let curX = pcC.UO.arr[i].x,
             curY = pcC.UO.arr[i].y;
         
         if (countedL.indexOf(curX) < 0){
@@ -314,7 +314,7 @@ var Page = {
         }
       }
       
-      var avgL = uDrawSize * (totalL / countedL.length + 0.5),
+      let avgL = uDrawSize * (totalL / countedL.length + 0.5),
           avgT = uDrawSize * (totalT / countedT.length + 0.5),
           offsetL = this.left + this.W/2,
           offsetT = this.top + this.H/2;
@@ -322,8 +322,8 @@ var Page = {
       //console.log(avgL + ", " + avgT);
       
      
-      for(var j = 0; j < pcC.UO.arr.length; j++){
-        var drawL = Math.floor(offsetL - avgL + pcC.UO.arr[j].x * uDrawSize),
+      for(let j = 0; j < pcC.UO.arr.length; j++){
+        let drawL = Math.floor(offsetL - avgL + pcC.UO.arr[j].x * uDrawSize),
             drawT = Math.floor(offsetT - avgT + pcC.UO.arr[j].y * uDrawSize); 
         
         Page.ctx.fillRect(drawL,drawT,uDrawSize - 1,uDrawSize - 1);
@@ -339,7 +339,7 @@ var Page = {
     Page.ctx.fillRect(this.left,this.top,this.W,this.H);
     
     
-    var miniUnit, left, top, width, height;
+    let miniUnit, left, top, width, height;
     
     miniUnit = Page.unitSize * 0.01;
     Page.ctx.fillStyle = 'rgb(255,232,96)';
@@ -380,7 +380,7 @@ var Page = {
     Page.ctx.fillRect(this.left,this.top,this.W,this.H);
     
 
-    var text, left, top, size, miniUnit;
+    let text, left, top, size, miniUnit;
     miniUnit = Page.unitSize * 0.01;
     
     text = ('00' + Player.Level).slice(-2);
@@ -400,7 +400,7 @@ var Page = {
   });
   
 
-  var Player = {
+  let Player = {
 
     TimeCur:0, TimeEvent:0, TickRate:0,
     
@@ -418,9 +418,9 @@ var Page = {
       this.Pc.Next = this.Pc.Cur = this.Pc.ProjY = 0;
   
       
-      for(var i = 0; i < 10; i++){
+      for(let i = 0; i < 10; i++){
         this.StaticUnits[i] = [];
-        for(var j = 0; j < 20; j++){
+        for(let j = 0; j < 20; j++){
           this.StaticUnits[i][j] = 0;
         }
       }
@@ -482,7 +482,7 @@ var Page = {
     
 
     CheckUnits: function(checkRowsRaw){
-      var scoreMult = 0,
+      let scoreMult = 0,
           pieceScore = 0,
           checkRows = [];
       
@@ -492,17 +492,17 @@ var Page = {
       }
       
 
-      for(var a = 0; a < 20; a++){
+      for(let a = 0; a < 20; a++){
         if (checkRowsRaw.indexOf(a) >= 0){
           checkRows.push(a);
         }
       }
       
-      for(var i = 0; i < checkRows.length; i++){
-        var hasGap = false,
+      for(let i = 0; i < checkRows.length; i++){
+        let hasGap = false,
             checkIndex = checkRows[i]; 
         
-        for(var j = 0; j < Player.StaticUnits.length; j++){
+        for(let j = 0; j < Player.StaticUnits.length; j++){
           if (Player.StaticUnits[j][checkIndex] === 0){
             hasGap = true;
             break;
@@ -511,7 +511,7 @@ var Page = {
         
         
         if (hasGap === false){
-          for(var k = 0; k < Player.StaticUnits.length; k++){
+          for(let k = 0; k < Player.StaticUnits.length; k++){
             Player.StaticUnits[k].splice(checkIndex,1);
             Player.StaticUnits[k].unshift(0);          
           }
@@ -568,21 +568,21 @@ var Page = {
   
    
     this.SetUO = function(rotCount, units){    
-      var linkedListUO = [];
+      let linkedListUO = [];
       
       linkedListUO[0] = { nextUO: 0, arr:[] };
       linkedListUO[0].arr = units;
   
-      for(var i = 0; i < rotCount; i++){
-        var nextI = (i + 1 < rotCount) ? i + 1 : 0;
+      for(let i = 0; i < rotCount; i++){
+        //let nextI = (i + 1 < rotCount) ? i + 1 : 0;
         linkedListUO[i] = { nextUO: 0, arr:[]};
         
         if (i > 0){
           linkedListUO[i-1].nextUO = linkedListUO[i];
         }
   
-        for(var j = 0; j < units.length; j++){
-          var unX,
+        for(let j = 0; j < units.length; j++){
+          let unX,
               unY;
           
           if (i === 0){
@@ -676,7 +676,7 @@ var Page = {
              
       
       if (this.Cur !== 0){
-        var spawnCollisions = this.CheckCollisions(0,0,0);
+        let spawnCollisions = this.CheckCollisions(0,0,0);
         if (spawnCollisions > 0){
           Player.GameOver();
           this.Freeze();
@@ -685,7 +685,7 @@ var Page = {
       
      
       if (Player.IsAlive !== 0){
-        var randInt = Math.floor(Math.random() * 7);
+        let randInt = Math.floor(Math.random() * 7);
   
         switch(randInt){
           case 0: this.Upcoming[2] = Player.O(); break;
@@ -713,10 +713,10 @@ var Page = {
     Freeze: function(){
       
       if (Player.IsAlive){
-        var affectedRows = [];    
+        let affectedRows = [];    
       
-        for(var i = 0; i < this.Cur.UO.arr.length; i++){
-          var staticX = this.Cur.x + this.Cur.UO.arr[i].x,
+        for(let i = 0; i < this.Cur.UO.arr.length; i++){
+          let staticX = this.Cur.x + this.Cur.UO.arr[i].x,
               staticY = this.Cur.y + this.Cur.UO.arr[i].y;
   
           if (staticY >= 0 && staticY <= Player.StaticUnits[0].length){
@@ -736,7 +736,7 @@ var Page = {
   
     DoGravity: function(){    
       if (this.Cur !== 0){
-        var collisions = this.CheckCollisions(0,0,1);
+        let collisions = this.CheckCollisions(0,0,1);
         
         if (collisions === 0){
           this.Cur.y++;
@@ -751,7 +751,7 @@ var Page = {
    
     TryRotate: function(){
       if (this.Cur !== 0){    
-        var collisions = this.CheckCollisions(1,0,0);
+        let collisions = this.CheckCollisions(1,0,0);
   
         if (collisions === 0){
           this.Cur.Rotate();
@@ -764,7 +764,7 @@ var Page = {
    
     TryMove: function(moveX, moveY){    
       if (this.Cur !== 0){
-        var collisions = this.CheckCollisions(0,moveX,moveY);
+        let collisions = this.CheckCollisions(0,moveX,moveY);
   
         if (collisions === 0){
           this.Cur.x += moveX;
@@ -782,7 +782,7 @@ var Page = {
     
    
     TryDrop: function(){ 
-      var squaresDropped = 0;
+      let squaresDropped = 0;
       
       if (this.Cur !== 0){
         while(this.TryMove(0,1) === true && squaresDropped < 22){
@@ -802,7 +802,7 @@ var Page = {
     
  
     TryProject: function(){
-      var squaresDropped = 0;
+      let squaresDropped = 0;
       
       if (this.Cur !== 0){
         while(this.CheckCollisions(0,0,squaresDropped) === 0 &&
@@ -815,7 +815,7 @@ var Page = {
         
   
     CheckCollisions: function(doRot, offsetX, offsetY){
-      var unitArr,
+      let unitArr,
           collisionCount = 0;    
       
       if (doRot === 1){
@@ -825,8 +825,8 @@ var Page = {
         unitArr = this.Cur.UO.arr;
       }
   
-      for(var i = 0; i < unitArr.length; i++){
-        var testX = this.Cur.x + unitArr[i].x + offsetX,
+      for(let i = 0; i < unitArr.length; i++){
+        let testX = this.Cur.x + unitArr[i].x + offsetX,
             testY = this.Cur.y + unitArr[i].y + offsetY,
             limitX = Player.StaticUnits.length,
             limitY = Player.StaticUnits[0].length;
@@ -883,8 +883,8 @@ var Page = {
 document.addEventListener('touchstart', handleTouchStart, false);        
 document.addEventListener('touchmove', handleTouchMove, false);
 
-var xDown = null;                                                        
-var yDown = null;
+let xDown = null;                                                        
+let yDown = null;
 
 function getTouches(evt) {
   return evt.touches ||             // browser API
@@ -902,11 +902,11 @@ function handleTouchMove(evt) {
         return;
     }
 
-    var xUp = evt.touches[0].clientX;                                    
-    var yUp = evt.touches[0].clientY;
+    let xUp = evt.touches[0].clientX;                                    
+    let yUp = evt.touches[0].clientY;
 
-    var xDiff = xDown - xUp;
-    var yDiff = yDown - yUp;
+    let xDiff = xDown - xUp;
+    let yDiff = yDown - yUp;
                                                
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
         if ( xDiff > 0 ) {
@@ -955,7 +955,7 @@ function handleTouchMove(evt) {
   
   
   function ColorWithAlpha(color, alpha){
-    var retColor = 'rgba' + color.substring(3,color.length - 1);
+    let retColor = 'rgba' + color.substring(3,color.length - 1);
     retColor += ',' + alpha + ')';
     return retColor;
   }
