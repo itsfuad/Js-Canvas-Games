@@ -8,7 +8,7 @@ let button = Math.round(Math.random());
 let turn = button ? '😘' : '💙';
 let pc_turn = button ? '💙' : '😘';
 let played_tiles = 0;
-//alert(`${turn} is your symbol`);
+  
 
 
 console.log(`${turn} is your symbol`);
@@ -56,10 +56,10 @@ cells.forEach(cell => {
             played_tiles++;
             who(win());
             computer();
-          //  console.log('Already Occupied!');
+            
         }
-        //button = Math.round(Math.random());
-        //turn = button ? '😘' : '💙';
+          
+          
 
     });
 });
@@ -67,7 +67,7 @@ cells.forEach(cell => {
 
 function computer(){
     let pc_pos = Math.floor(Math.random()*8);
-   // console.log(pc_pos);
+     
    
    console.log(played_tiles);
    if(played_tiles >= 9){
@@ -75,7 +75,7 @@ function computer(){
    }else{
     if(cells[pc_pos].innerText != '💙' && cells[pc_pos].innerText != '😘'){
         
-      //  console.log('^');
+        
         cells[pc_pos].innerText = pc_turn;
         cells[pc_pos].style.color = !button ? '#ff6969':'skyblue';
         played_tiles++;

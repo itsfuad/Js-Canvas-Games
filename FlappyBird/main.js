@@ -12,11 +12,8 @@ let deltatime, currentTime, lastTime = Date.now();
 let gravity = 3;
 let levels = 1;
 let frame;
-//let jumpSound = new Audio("src/jump.wav");
-//let levelUpsound = new Audio("src/levelup.wav");
-//let bgsound = new Audio("src/bg.wav");
 
-class object {
+class OBJECT {
     constructor(canvas){
         this.canvas = canvas;
         this.w = 30;
@@ -26,10 +23,10 @@ class object {
         this.speed = {x: 0, y: 0, x2: 0, y2: 0};
     }
     update(deltatime){
-        //console.log("Update");
+         
         if (!paused){
             deltatime = deltatime / 10;
-            if (jump == false) { //console.log(deltatime);
+            if (jump == false) {  
                 this.speed.y = gravity;
             }
             else {
@@ -54,35 +51,31 @@ class object {
     colision(){
         if(this.position.y + this.h >= canvas.height
             || this.position.y <= 0){
-            //console.log("colision");
+             
             this.position.y = canvas.height - this.h;
-           // alert('colision');
             gameOver();
         }
     }
     objectColision(target){
-        //console.log("Hello");
-        ////console.log(this.position.x);
-        ////console.log(target.position.x);
+         
         if((this.position.x) < (target.position.x + target.w)
         && (this.position.x+this.w + 6) > target.position.x
         && (this.position.y) < (target.position.y + target.h)
         && (this.position.y+this.h) > target.position.y){
             
-           // alert('objcoli1');
             gameOver();
         }
         if((this.position.x) < (target.position.x2 + target.w2)
         && (this.position.x+this.w) > target.position.x2
         && (this.position.y) < (target.position.y2 + target.h2)
         && (this.position.y+this.h) > target.position.y2){
-         //  alert('objcoli2');
+
             gameOver();
         }
     }
 }
 
-class Bar extends object{
+class Bar extends OBJECT{
     constructor(canvas){
         super(canvas);
         this.w2 = 30;
@@ -99,9 +92,8 @@ class Bar extends object{
         }
     }
     generate(){
-        //console.log(pos);
+         
         if(this.position.x+this.w <= 0){
-            //levelUpsound.play();
             levels++;
             this.h = Math.floor(Math.random()* canvas.width) + 50;
             this.position.x = this.canvas.width;
@@ -124,13 +116,13 @@ function sleep(ms) {
 }
 
 const gameOver = () => {
-    //console.log("GameOver");
+     
     if (score > highscore){ 
         highscore = score;
         window.localStorage.setItem("itf_hgs", Math.floor(highscore).toString());
     }
     levels = 1;
-   // alert('h');
+
     isGameOver = true;
     
     document.getElementById('gameovermsg').classList.add('on');
@@ -138,39 +130,37 @@ const gameOver = () => {
 }
 
 document.addEventListener("keydown", async (e) => {
-    //console.log("Jumped");
+     
 
     if (isGameOver == true && e.key == 'Enter'){
         play();
     }
     else if (e.key == ' '){
-        jump = true;
-        await sleep(120);
-        jump = false;
+        handleJump();
     }
     else if(e.key == 'p' || e.key == 'P'){
           paused = !paused;
           pausebtn.innerText = pausebtn.innerText == '⏸️' ? '▶️' : '⏸️';
     }
-    //console.log("Normal");
-   // jumpSound.play();
 });
 
-document.addEventListener("click", async () => {
-    //console.log("Jumped");
+async function handleJump(){
     jump = true;
     await sleep(120);
     jump = false;
-    //console.log("Normal");
-   // jumpSound.play();
+}
+
+document.addEventListener("click", async () => {
+     
+    handleJump();
 });
 
 let bird, bar;
-bird = new object(canvas);
+bird = new OBJECT(canvas);
 bar = new Bar(canvas);
 
 function initScene(){
-    //console.log("Init");
+     
     isGameOver = false;
     score = 0;
     bird.color = "lightyellow";
@@ -238,7 +228,7 @@ const gameLoop = () => {
     ctx.fillStyle = "black";
     ctx.fillText("Score: "+Math.floor(score).toString(), 10, 20);
     ctx.fillText("High Score: "+Math.floor(highscore), 10, 40);
-    //console.log("GameLoop");
+     
     frame = requestAnimationFrame(gameLoop);
 }
 
@@ -248,12 +238,12 @@ pausebtn.addEventListener('click',()=>{
     paused = !paused;
     pausebtn.innerText = pausebtn.innerText == '⏸️'? '▶️':'⏸️';
 });
-//bgsound.play();
+
 
 const playbtn = document.getElementById('play');
 
 const play = ()=>{
-    //console.log("Play");
+     
     cancelAnimationFrame(frame);
     paused = false;
     initScene();

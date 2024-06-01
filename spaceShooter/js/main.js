@@ -26,7 +26,7 @@ function draw(){
     ctx.stroke();
     ctx.closePath();
     ctx.strokeStyle = "hotpink";
-    //ctx.strokeSize = 10;
+
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x+size, y+size+strech);

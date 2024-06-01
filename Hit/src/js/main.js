@@ -25,7 +25,6 @@ const drawDoge = () => {
     y = Math.floor(Math.random()*(canvas.height - 47) + 50);
     ctx.drawImage(doge, 0, arr, 55, 47, x, y, 55, 47);
     
-   // ctx.drawImage(doge, 0, 0);
 }
 
 canvas.addEventListener('touchstart', async (evt) => {
@@ -34,7 +33,6 @@ canvas.addEventListener('touchstart', async (evt) => {
     
     if ((tx >= x && tx <= x + 55)
     && (ty >= y && ty <= y + 47)){
-  //  ctx.clearRect(0,0,canvas.width, canvas.height);
       if (free){
           arr = 88;
       ctx.drawImage(doge, 0, arr, 55, 47, x, y, 55, 47);
@@ -48,8 +46,8 @@ canvas.addEventListener('touchstart', async (evt) => {
     }
 });
 function getTouches(evt) {
-    return evt.touches || // browser API
-        evt.originalEvent.touches; // jQuery
+    return evt.touches ||   
+        evt.originalEvent.touches;   
 }
 
 async function timer(){
@@ -60,7 +58,7 @@ async function timer(){
         timeT--;
         await sleep(1000);
     }
-    //requestAnimationFrame(timer);
+
     timer();
 }
 function gameover(){
@@ -70,7 +68,6 @@ function gameover(){
     over=true;
 }
 
-//drawDoge();
 const gameLoop = async () => {
   if(!over){
        
@@ -84,7 +81,6 @@ const gameLoop = async () => {
     ctx.fillText(`Time remaining: ${timeT} seconds`, canvas.width - 10, 30);
     drawDoge();
     await sleep(500);
-    //timer();
    requestAnimationFrame(gameLoop);
   }
     

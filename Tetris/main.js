@@ -218,7 +218,7 @@ let Page = {
           offsetL = this.left + this.W/2,
           offsetT = this.top + this.H/2;
       
-      //console.log(avgL + ", " + avgT);
+       
       
      
       for(let j = 0; j < pcA.UO.arr.length; j++){
@@ -269,7 +269,7 @@ let Page = {
           offsetL = this.left + this.W/2,
           offsetT = this.top + this.H/2;
       
-      //console.log(avgL + ", " + avgT);
+       
       
       
       for(let j = 0; j < pcB.UO.arr.length; j++){
@@ -319,7 +319,7 @@ let Page = {
           offsetL = this.left + this.W/2,
           offsetT = this.top + this.H/2;
       
-      //console.log(avgL + ", " + avgT);
+       
       
      
       for(let j = 0; j < pcC.UO.arr.length; j++){
@@ -548,7 +548,7 @@ let Page = {
         this.ScoreHigh = this.ScoreCur;
         localStorage.setItem('tetris_high_score', this.ScoreHigh);
         Page.ScoreBarHigh.IsDirty = true;
-        //console.log(this.ScoreHigh);
+         
       }    
       
       this.IsAlive = false;
@@ -574,7 +574,7 @@ let Page = {
       linkedListUO[0].arr = units;
   
       for(let i = 0; i < rotCount; i++){
-        //let nextI = (i + 1 < rotCount) ? i + 1 : 0;
+          
         linkedListUO[i] = { nextUO: 0, arr:[]};
         
         if (i > 0){
@@ -698,7 +698,7 @@ let Page = {
           default: break;      
         }
   
-        // if a current piece was set, inform the Player
+          
         if (this.Cur !== 0){
           Player.PieceSpawned();
           Page.Game.IsDirty = true;
@@ -887,8 +887,8 @@ let xDown = null;
 let yDown = null;
 
 function getTouches(evt) {
-  return evt.touches ||             // browser API
-         evt.originalEvent.touches; // jQuery
+  return evt.touches ||               
+         evt.originalEvent.touches;   
 }                                                     
                                                                          
 function handleTouchStart(evt) {
@@ -910,18 +910,18 @@ function handleTouchMove(evt) {
                                                
     if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
         if ( xDiff > 0 ) {
-            //left
+              
             Page.Game.IsDirty = Player.Pc.TryMove(-1,0);
         } else {
-            //right
+              
             Page.Game.IsDirty = Player.Pc.TryMove(1,0);
         }                       
     } else {
         if ( yDiff > 0 ) {
-            //Up
+              
             Page.Game.IsDirty = Player.Pc.TryRotate(); 
         } else { 
-           //xDown
+             
            Page.Game.IsDirty = Player.Pc.TryMove(0,1);
         }                                                                 
     }
