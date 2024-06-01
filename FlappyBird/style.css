@@ -20,7 +20,6 @@ body{
       user-select: none;
 }
 #canvas{
-   /* background: #DCFFDE;*/
     background-color: #88C2F6;
     background-image: url('src/images.png');
     background-blend-mode: normal;

@@ -26,7 +26,7 @@ class OBJECT {
          
         if (!paused){
             deltatime = deltatime / 10;
-            if (jump == false) {  
+            if (!jump) {  
                 this.speed.y = gravity;
             }
             else {

@@ -20,7 +20,6 @@ body{
     user-select: none;
 }
 #canvas {
-    /* background: #DCFFDE;*/
     background-color:#e9fcf6;
     border: 10px solid #c8f5e0;
     border-radius: 10px;
