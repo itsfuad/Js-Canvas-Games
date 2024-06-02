@@ -75,12 +75,12 @@ let Page = {
   
    
     Update: function() {
-      for(let i = 0; i < Page.AreaArr.length; i++){
-        if (Page.AreaArr[i].IsDirty){
-          Page.AreaArr[i].Draw();
-          Page.AreaArr[i].IsDirty = false;
-        }
-      }
+      Page.AreaArr.forEach(area => {
+          if (area.IsDirty){
+            area.Draw();
+            area.IsDirty = false;
+          }
+      });
     }
   };
    
@@ -154,10 +154,9 @@ let Page = {
    
     if (Player.Pc.Cur !== 0 && Player.IsAlive){
       let projColor = ColorWithAlpha(Player.Pc.Cur.color,0.1);   
-      
-      for(let k = 0; k < Player.Pc.Cur.UO.arr.length; k++){
-        drawL = (Player.Pc.Cur.x + Player.Pc.Cur.UO.arr[k].x) * Page.unitSize + 1;
-        drawT = (Player.Pc.Cur.y + Player.Pc.Cur.UO.arr[k].y) * Page.unitSize + 1;
+      Player.Pc.Cur.UO.arr.forEach((unit) => {
+        drawL = (Player.Pc.Cur.x + unit.x) * Page.unitSize + 1;
+        drawT = (Player.Pc.Cur.y + unit.y) * Page.unitSize + 1;
         
         Page.ctx.fillStyle = Player.Pc.Cur.color;
         Page.ctx.fillRect(drawL,drawT,uDrawSize,uDrawSize); 
@@ -169,7 +168,7 @@ let Page = {
           Page.ctx.fillStyle = projColor;
           Page.ctx.fillRect(drawL,drawT,uDrawSize,uDrawSize);
         }
-      }
+      });
     }
       
 
@@ -198,10 +197,9 @@ let Page = {
           countedL = [], 
           countedT = [];
       
-     
-      for(let i = 0; i < pcA.UO.arr.length; i++){
-        let curX = pcA.UO.arr[i].x,
-            curY = pcA.UO.arr[i].y;
+      pcA.UO.arr.forEach((unit) => {
+        let curX = unit.x,
+            curY = unit.y;
         
         if (countedL.indexOf(curX) < 0){
           countedL.push(curX);
@@ -211,7 +209,7 @@ let Page = {
           countedT.push(curY);
           totalT += curY;
         }
-      }
+      });
       
       let avgL = uDrawSize * (totalL / countedL.length + 0.5),
           avgT = uDrawSize * (totalT / countedT.length + 0.5),
@@ -219,14 +217,12 @@ let Page = {
           offsetT = this.top + this.H/2;
       
        
-      
-     
-      for(let j = 0; j < pcA.UO.arr.length; j++){
-        let drawL = Math.floor(offsetL - avgL + pcA.UO.arr[j].x * uDrawSize),
-            drawT = Math.floor(offsetT - avgT + pcA.UO.arr[j].y * uDrawSize); 
-        
-        Page.ctx.fillRect(drawL,drawT,uDrawSize - 1,uDrawSize - 1);
-      }
+      pcA.UO.arr.forEach((unit) => {
+          let drawL = Math.floor(offsetL - avgL + unit.x * uDrawSize),
+              drawT = Math.floor(offsetT - avgT + unit.y * uDrawSize); 
+          
+          Page.ctx.fillRect(drawL,drawT,uDrawSize - 1,uDrawSize - 1);
+        });
     }
   });
   
@@ -249,10 +245,9 @@ let Page = {
           countedL = [], 
           countedT = [];
       
-      
-      for(let i = 0; i < pcB.UO.arr.length; i++){
-        let curX = pcB.UO.arr[i].x,
-            curY = pcB.UO.arr[i].y;
+      pcB.UO.arr.forEach((unit) => {
+        let curX = unit.x,
+            curY = unit.y;
         
         if (countedL.indexOf(curX) < 0){
           countedL.push(curX);
@@ -262,7 +257,7 @@ let Page = {
           countedT.push(curY);
           totalT += curY;
         }
-      }
+      });
       
       let avgL = uDrawSize * (totalL / countedL.length + 0.5),
           avgT = uDrawSize * (totalT / countedT.length + 0.5),
@@ -270,14 +265,12 @@ let Page = {
           offsetT = this.top + this.H/2;
       
        
-      
-      
-      for(let j = 0; j < pcB.UO.arr.length; j++){
-        let drawL = Math.floor(offsetL - avgL + pcB.UO.arr[j].x * uDrawSize),
-            drawT = Math.floor(offsetT - avgT + pcB.UO.arr[j].y * uDrawSize); 
-        
-        Page.ctx.fillRect(drawL,drawT,uDrawSize - 1,uDrawSize - 1);
-      }
+      pcB.UO.arr.forEach((unit) => {
+          let drawL = Math.floor(offsetL - avgL + unit.x * uDrawSize),
+              drawT = Math.floor(offsetT - avgT + unit.y * uDrawSize); 
+          
+          Page.ctx.fillRect(drawL,drawT,uDrawSize - 1,uDrawSize - 1);
+        });
     }
   });
   
@@ -299,11 +292,11 @@ let Page = {
           totalT = 0, 
           countedL = [], 
           countedT = [];
-      
-      for(let i = 0; i < pcC.UO.arr.length; i++){
-        let curX = pcC.UO.arr[i].x,
-            curY = pcC.UO.arr[i].y;
-        
+
+      pcC.UO.arr.forEach((unit) => {
+        let curX = unit.x,
+            curY = unit.y;
+
         if (countedL.indexOf(curX) < 0){
           countedL.push(curX);
           totalL += curX;
@@ -312,22 +305,19 @@ let Page = {
           countedT.push(curY);
           totalT += curY;
         }
-      }
+      });
       
       let avgL = uDrawSize * (totalL / countedL.length + 0.5),
           avgT = uDrawSize * (totalT / countedT.length + 0.5),
           offsetL = this.left + this.W/2,
           offsetT = this.top + this.H/2;
       
-       
-      
-     
-      for(let j = 0; j < pcC.UO.arr.length; j++){
-        let drawL = Math.floor(offsetL - avgL + pcC.UO.arr[j].x * uDrawSize),
-            drawT = Math.floor(offsetT - avgT + pcC.UO.arr[j].y * uDrawSize); 
-        
-        Page.ctx.fillRect(drawL,drawT,uDrawSize - 1,uDrawSize - 1);
-      }
+      pcC.UO.arr.forEach((unit) => {
+          let drawL = Math.floor(offsetL - avgL + unit.x * uDrawSize),
+              drawT = Math.floor(offsetT - avgT + unit.y * uDrawSize); 
+          
+          Page.ctx.fillRect(drawL,drawT,uDrawSize - 1,uDrawSize - 1);
+        });
     }
   });
   
