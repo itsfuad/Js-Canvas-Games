@@ -129,10 +129,10 @@ const gameOver = () => {
 
 }
 
-document.addEventListener("keydown", async (e) => {
+document.addEventListener("keydown", (e) => {
      
 
-    if (isGameOver == true && e.key == 'Enter'){
+    if (isGameOver && e.key == 'Enter'){
         play();
     }
     else if (e.key == ' '){
@@ -150,7 +150,7 @@ async function handleJump(){
     jump = false;
 }
 
-document.addEventListener("click", async () => {
+document.addEventListener("click", () => {
      
     handleJump();
 });
@@ -243,7 +243,6 @@ pausebtn.addEventListener('click',()=>{
 const playbtn = document.getElementById('play');
 
 const play = ()=>{
-     
     cancelAnimationFrame(frame);
     paused = false;
     initScene();

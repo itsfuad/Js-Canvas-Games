@@ -27,23 +27,24 @@ const drawDoge = () => {
     
 }
 
-canvas.addEventListener('touchstart', async (evt) => {
-    let tx = getTouches(evt)[0].clientX;
-    let ty = getTouches(evt)[0].clientY;
-    
-    if ((tx >= x && tx <= x + 55)
-    && (ty >= y && ty <= y + 47)){
-      if (free){
-          arr = 88;
-      ctx.drawImage(doge, 0, arr, 55, 47, x, y, 55, 47);
-      score++;
-      free = false;
-      await sleep(300);
-      free = true;
-      arr = 0;
-      }
-    
-    }
+canvas.addEventListener('touchstart', (evt) => {
+    (async () => {
+        let tx = getTouches(evt)[0].clientX;
+        let ty = getTouches(evt)[0].clientY;
+        
+        if ((tx >= x && tx <= x + 55)
+        && (ty >= y && ty <= y + 47)){
+          if (free){
+              arr = 88;
+          ctx.drawImage(doge, 0, arr, 55, 47, x, y, 55, 47);
+          score++;
+          free = false;
+          await sleep(300);
+          free = true;
+          arr = 0;
+          }
+        }
+    })();
 });
 function getTouches(evt) {
     return evt.touches ||   
@@ -68,22 +69,21 @@ function gameover(){
     over=true;
 }
 
-const gameLoop = async () => {
-  if(!over){
-       
-    
-    ctx.clearRect(0,0,canvas.width, canvas.height);
-    ctx.textAlign = "start";
-    ctx.fillStyle = 'black';
-    ctx.fillText(`Score: ${score}`, 10, 20);
-    ctx.fillText(`High Score: ${highscore}`, 10, 40);
-    ctx.textAlign = "end";
-    ctx.fillText(`Time remaining: ${timeT} seconds`, canvas.width - 10, 30);
-    drawDoge();
-    await sleep(500);
-   requestAnimationFrame(gameLoop);
-  }
-    
+const gameLoop = () => {
+    (async () => {
+        if(!over){
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.textAlign = "start";
+            ctx.fillStyle = 'black';
+            ctx.fillText(`Score: ${score}`, 10, 20);
+            ctx.fillText(`High Score: ${highscore}`, 10, 40);
+            ctx.textAlign = "end";
+            ctx.fillText(`Time remaining: ${timeT} seconds`, canvas.width - 10, 30);
+            drawDoge();
+            await sleep(500);
+            requestAnimationFrame(gameLoop);
+        }
+    })();
 }
 timer();
 gameLoop();

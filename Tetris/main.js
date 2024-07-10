@@ -23,11 +23,11 @@ let Page = {
       let rightLimit = 0,
           bottomLimit = 0;
   
-      for(let i = 0; i < Page.AreaArr.length; i++){
-        Page.AreaArr[i].CalculateBounds();
+      for (let arr of Page.AreaArr){
+        arr.CalculateBounds();
   
-        let newRightLimit = Page.AreaArr[i].left + Page.AreaArr[i].W,
-            newBottomLimit = Page.AreaArr[i].top + Page.AreaArr[i].H;
+        let newRightLimit = arr.left + arr.W,
+            newBottomLimit = arr.top + arr.H;
   
         rightLimit = Math.max(newRightLimit, rightLimit);
         bottomLimit = Math.max(newBottomLimit, bottomLimit);
@@ -68,8 +68,8 @@ let Page = {
       this.WindowChanged();
       
 
-      for(let i = 0; i < Page.AreaArr.length; i++){
-        Page.AreaArr[i].IsDirty = true;
+      for(let arr of Page.AreaArr){
+        arr.IsDirty = true;
       }
     },
   
@@ -329,7 +329,7 @@ let Page = {
     Page.ctx.fillRect(this.left,this.top,this.W,this.H);
     
     
-    let miniUnit, left, top, width, height;
+    let miniUnit, left, top, width, height, text, size;
     
     miniUnit = Page.unitSize * 0.01;
     Page.ctx.fillStyle = 'rgb(255,232,96)';
@@ -487,23 +487,21 @@ let Page = {
           checkRows.push(a);
         }
       }
-      
-      for(let i = 0; i < checkRows.length; i++){
-        let hasGap = false,
-            checkIndex = checkRows[i]; 
+
+      for(let checkIndex of checkRows){
+        let hasGap = false;
         
-        for(let j = 0; j < Player.StaticUnits.length; j++){
-          if (Player.StaticUnits[j][checkIndex] === 0){
+        for(let column of Player.StaticUnits){
+          if (column[checkIndex] === 0){
             hasGap = true;
             break;
           }
         }
         
-        
         if (hasGap === false){
-          for(let k = 0; k < Player.StaticUnits.length; k++){
-            Player.StaticUnits[k].splice(checkIndex,1);
-            Player.StaticUnits[k].unshift(0);          
+          for(let column of Player.StaticUnits){
+            column.splice(checkIndex,1);
+            column.unshift(0);          
           }
           
           pieceScore += 100 + 200 * scoreMult;
@@ -705,18 +703,19 @@ let Page = {
       if (Player.IsAlive){
         let affectedRows = [];    
       
-        for(let i = 0; i < this.Cur.UO.arr.length; i++){
-          let staticX = this.Cur.x + this.Cur.UO.arr[i].x,
-              staticY = this.Cur.y + this.Cur.UO.arr[i].y;
-  
-          if (staticY >= 0 && staticY <= Player.StaticUnits[0].length){
+        for (const item of this.Cur.UO.arr) {
+          let staticX = this.Cur.x + item.x,
+              staticY = this.Cur.y + item.y;
+        
+          if (staticY >= 0 && staticY <= Player.StaticUnits[0].length) {
             Player.StaticUnits[staticX][staticY] = this.Cur.color;
           }
-  
-          if (affectedRows.indexOf(staticY) < 0){
+        
+          if (affectedRows.indexOf(staticY) < 0) {
             affectedRows.push(staticY);
           }
         }
+        
   
         Player.CheckUnits(affectedRows);
         this.Generate();
@@ -815,22 +814,21 @@ let Page = {
         unitArr = this.Cur.UO.arr;
       }
   
-      for(let i = 0; i < unitArr.length; i++){
-        let testX = this.Cur.x + unitArr[i].x + offsetX,
-            testY = this.Cur.y + unitArr[i].y + offsetY,
+      for (const unit of unitArr) {
+        let testX = this.Cur.x + unit.x + offsetX,
+            testY = this.Cur.y + unit.y + offsetY,
             limitX = Player.StaticUnits.length,
             limitY = Player.StaticUnits[0].length;
-        
-  
-        if (testX < 0 || testX >= limitX || testY >= limitY){
+      
+        if (testX < 0 || testX >= limitX || testY >= limitY) {
           return -1;
-        }      
-        else if (testY > 0){
-          if (Player.StaticUnits[testX][testY] !== 0){
+        } else if (testY > 0) {
+          if (Player.StaticUnits[testX][testY] !== 0) {
             collisionCount++;
           }
         }
-      }    
+      }
+       
       return collisionCount;
     }
   };
@@ -906,14 +904,10 @@ function handleTouchMove(evt) {
               
             Page.Game.IsDirty = Player.Pc.TryMove(1,0);
         }                       
-    } else {
-        if ( yDiff > 0 ) {
-              
-            Page.Game.IsDirty = Player.Pc.TryRotate(); 
-        } else { 
-             
-           Page.Game.IsDirty = Player.Pc.TryMove(0,1);
-        }                                                                 
+    } else if ( yDiff > 0 ) { 
+        Page.Game.IsDirty = Player.Pc.TryRotate(); 
+    } else { 
+        Page.Game.IsDirty = Player.Pc.TryMove(0,1);                                                        
     }
     /* reset values */
     xDown = null;

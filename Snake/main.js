@@ -160,7 +160,7 @@ const gameLoop = async () => {
 document.addEventListener("keydown", (e) => {
      
    
-    if (isGameOver == true && e.key == 'Enter') {
+    if (isGameOver && e.key == 'Enter') {
         play();
     }
     else if (e.key == 'p' || e.key == 'P') {
@@ -223,24 +223,22 @@ function handleTouchMove(evt) {
       let yDiff = yDown - yUp;
     
     if(!paused){                                              
-    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-        if ( xDiff > 0 ) {
-            directionX = directionX == 20? 20 : -20;
-            directionY = 0;
-        } else {
-            directionX = directionX == -20? -20 : 20;
-            directionY = 0;
-        }                       
-    } else {
-        if ( yDiff > 0 ) {
+        if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+            if ( xDiff > 0 ) {
+                directionX = directionX == 20? 20 : -20;
+                directionY = 0;
+            } else {
+                directionX = directionX == -20? -20 : 20;
+                directionY = 0;
+            }                       
+        } else if ( yDiff > 0 ) {
             directionX = 0 ;
             directionY = directionY == 20? 20 : -20;
         } else { 
             directionX = 0 ;
             directionY = directionY == -20? -20 : 20;
-        }                                                                 
-    }
-    }
+        }
+    }                                                       
     /* reset values */
     xDown = null;
     yDown = null;                                             
@@ -276,6 +274,6 @@ if ('serviceWorker' in navigator){
     });
 }
 
-document.addEventListener('DOMContentLoaded',() =>{
+document.addEventListener('DOMContentLoaded', () =>{
     play();
 });

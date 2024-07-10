@@ -8,26 +8,26 @@ let button = Math.round(Math.random());
 let turn = button ? '😘' : '💙';
 let pc_turn = button ? '💙' : '😘';
 let played_tiles = 0;
-  
+
 
 
 console.log(`${turn} is your symbol`);
 hint.innerText += turn;
 
-if (!button){
+if (!button) {
     computer();
 }
 
-function who(state){
-    if(state == 1){
-        if(turn == '💙'){
+function who(state) {
+    if (state == 1) {
+        if (turn == '💙') {
             text.innerText = "You won";
-        }else{
+        } else {
             text.innerText = "Computer won";
         }
         message.classList.add('active');
         return;
-    }else if(state == 2){
+    } else if (state == 2) {
         if (turn == '😘') {
             text.innerText = "You won";
         } else {
@@ -36,7 +36,7 @@ function who(state){
         message.classList.add('active');
         return;
     }
-    else if(state == 3){
+    else if (state == 3) {
         text.innerText = "Tie";
         message.classList.add('active');
         return;
@@ -49,49 +49,44 @@ function sleep(ms) {
 }
 
 cells.forEach(cell => {
-    cell.addEventListener('click', () =>{
-        if(cell.innerText != '💙' && cell.innerText != '😘'){
+    cell.addEventListener('click', () => {
+        if (cell.innerText != '💙' && cell.innerText != '😘') {
             cell.style.color = button ? '#ff6969' : 'skyblue';
             cell.innerText = turn;
             played_tiles++;
             who(win());
             computer();
-            
+
         }
-          
-          
+
+
 
     });
 });
 
 
-function computer(){
-    let pc_pos = Math.floor(Math.random()*8);
-     
-   
-   console.log(played_tiles);
-   if(played_tiles >= 9){
-     who(win()?0:3);
-   }else{
-    if(cells[pc_pos].innerText != '💙' && cells[pc_pos].innerText != '😘'){
-        
-        
+function computer() {
+    let pc_pos = Math.floor(Math.random() * 8);
+
+
+    console.log(played_tiles);
+    if (played_tiles >= 9) {
+        who(win() ? 0 : 3);
+    } else if (cells[pc_pos].innerText != '💙' && cells[pc_pos].innerText != '😘') {
+
         cells[pc_pos].innerText = pc_turn;
-        cells[pc_pos].style.color = !button ? '#ff6969':'skyblue';
+        cells[pc_pos].style.color = !button ? '#ff6969' : 'skyblue';
         played_tiles++;
         who(win());
-        
-    }
-    
-    else{
+
+    } else {
         computer();
     }
-   }
 }
 
-function win(){
+function win() {
     if (
-        (cells[0].innerText == '💙' && cells[1].innerText == '💙' && cells[2].innerText == '💙') 
+        (cells[0].innerText == '💙' && cells[1].innerText == '💙' && cells[2].innerText == '💙')
         || (cells[3].innerText == '💙' && cells[4].innerText == '💙' && cells[5].innerText == '💙')
         || (cells[6].innerText == '💙' && cells[7].innerText == '💙' && cells[8].innerText == '💙')
         || (cells[0].innerText == '💙' && cells[3].innerText == '💙' && cells[6].innerText == '💙')
@@ -99,11 +94,11 @@ function win(){
         || (cells[2].innerText == '💙' && cells[5].innerText == '💙' && cells[8].innerText == '💙')
         || (cells[0].innerText == '💙' && cells[4].innerText == '💙' && cells[8].innerText == '💙')
         || (cells[2].innerText == '💙' && cells[4].innerText == '💙' && cells[6].innerText == '💙')
-    ){
+    ) {
         return 1;
     }
     else if (
-        (cells[0].innerText == '😘' && cells[1].innerText == '😘' && cells[2].innerText == '😘') 
+        (cells[0].innerText == '😘' && cells[1].innerText == '😘' && cells[2].innerText == '😘')
         || (cells[3].innerText == '😘' && cells[4].innerText == '😘' && cells[5].innerText == '😘')
         || (cells[6].innerText == '😘' && cells[7].innerText == '😘' && cells[8].innerText == '😘')
         || (cells[0].innerText == '😘' && cells[3].innerText == '😘' && cells[6].innerText == '😘')
@@ -111,14 +106,14 @@ function win(){
         || (cells[2].innerText == '😘' && cells[5].innerText == '😘' && cells[8].innerText == '😘')
         || (cells[0].innerText == '😘' && cells[4].innerText == '😘' && cells[8].innerText == '😘')
         || (cells[2].innerText == '😘' && cells[4].innerText == '😘' && cells[6].innerText == '😘')
-    ){
- 
+    ) {
+
         return 2;
     }
     return 0;
 }
 
-function reset(){
+function reset() {
     cells.forEach(cell => {
         cell.innerText = '';
     });
@@ -129,6 +124,6 @@ function reset(){
     hint.innerText = `Your Symbol is ${turn}`;
     message.classList.remove('active');
 }
-close.addEventListener('click', ()=>{
+close.addEventListener('click', () => {
     reset();
 })
