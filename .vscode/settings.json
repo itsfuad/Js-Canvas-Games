@@ -1,3 +1,4 @@
 {
-    "deepscan.enable": true
+    "deepscan.enable": true,
+    "codeQL.createQuery.qlPackLocation": "d:\\Dev\\Web\\Js-Canvas-Games"
 }

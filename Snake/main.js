@@ -211,38 +211,56 @@ function handleTouchStart(evt) {
     yDown = firstTouch.clientY;                                      
 };                                                
                                                                          
+// Function to reset touch coordinates
+function resetTouchCoordinates() {
+    xDown = null;
+    yDown = null;
+}
+
+// Function to handle horizontal swipe
+function handleHorizontalSwipe(xDiff) {
+    if (xDiff > 0) {
+        directionX = directionX === 20 ? 20 : -20;
+        directionY = 0;
+    } else {
+        directionX = directionX === -20 ? -20 : 20;
+        directionY = 0;
+    }
+}
+
+// Function to handle vertical swipe
+function handleVerticalSwipe(yDiff) {
+    if (yDiff > 0) {
+        directionX = 0;
+        directionY = directionY === 20 ? 20 : -20;
+    } else {
+        directionX = 0;
+        directionY = directionY === -20 ? -20 : 20;
+    }
+}
+
+// Main function to handle touch move
 function handleTouchMove(evt) {
-    if ( ! xDown || ! yDown ) {
+    if (!xDown || !yDown) {
         return;
     }
 
-      let xUp = evt.touches[0].clientX;                                    
-      let yUp = evt.touches[0].clientY;
+    let xUp = evt.touches[0].clientX;
+    let yUp = evt.touches[0].clientY;
 
-      let xDiff = xDown - xUp;
-      let yDiff = yDown - yUp;
-    
-    if(!paused){                                              
-        if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
-            if ( xDiff > 0 ) {
-                directionX = directionX == 20? 20 : -20;
-                directionY = 0;
-            } else {
-                directionX = directionX == -20? -20 : 20;
-                directionY = 0;
-            }                       
-        } else if ( yDiff > 0 ) {
-            directionX = 0 ;
-            directionY = directionY == 20? 20 : -20;
-        } else { 
-            directionX = 0 ;
-            directionY = directionY == -20? -20 : 20;
+    let xDiff = xDown - xUp;
+    let yDiff = yDown - yUp;
+
+    if (!paused) {
+        if (Math.abs(xDiff) > Math.abs(yDiff)) {
+            handleHorizontalSwipe(xDiff);
+        } else {
+            handleVerticalSwipe(yDiff);
         }
-    }                                                       
-    /* reset values */
-    xDown = null;
-    yDown = null;                                             
-};
+    }
+
+    resetTouchCoordinates();
+}
 
 
 

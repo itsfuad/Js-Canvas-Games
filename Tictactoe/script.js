@@ -26,7 +26,6 @@ function who(state) {
             text.innerText = "Computer won";
         }
         message.classList.add('active');
-        return;
     } else if (state == 2) {
         if (turn == '😘') {
             text.innerText = "You won";
@@ -34,14 +33,11 @@ function who(state) {
             text.innerText = "Computer won";
         }
         message.classList.add('active');
-        return;
-    }
-    else if (state == 3) {
+    } else if (state == 3) {
         text.innerText = "Tie";
         message.classList.add('active');
         return;
     }
-    return;
 }
 
 function sleep(ms) {
@@ -84,30 +80,30 @@ function computer() {
     }
 }
 
-function win() {
-    if (
-        (cells[0].innerText == '💙' && cells[1].innerText == '💙' && cells[2].innerText == '💙')
-        || (cells[3].innerText == '💙' && cells[4].innerText == '💙' && cells[5].innerText == '💙')
-        || (cells[6].innerText == '💙' && cells[7].innerText == '💙' && cells[8].innerText == '💙')
-        || (cells[0].innerText == '💙' && cells[3].innerText == '💙' && cells[6].innerText == '💙')
-        || (cells[1].innerText == '💙' && cells[4].innerText == '💙' && cells[7].innerText == '💙')
-        || (cells[2].innerText == '💙' && cells[5].innerText == '💙' && cells[8].innerText == '💙')
-        || (cells[0].innerText == '💙' && cells[4].innerText == '💙' && cells[8].innerText == '💙')
-        || (cells[2].innerText == '💙' && cells[4].innerText == '💙' && cells[6].innerText == '💙')
-    ) {
-        return 1;
-    }
-    else if (
-        (cells[0].innerText == '😘' && cells[1].innerText == '😘' && cells[2].innerText == '😘')
-        || (cells[3].innerText == '😘' && cells[4].innerText == '😘' && cells[5].innerText == '😘')
-        || (cells[6].innerText == '😘' && cells[7].innerText == '😘' && cells[8].innerText == '😘')
-        || (cells[0].innerText == '😘' && cells[3].innerText == '😘' && cells[6].innerText == '😘')
-        || (cells[1].innerText == '😘' && cells[4].innerText == '😘' && cells[7].innerText == '😘')
-        || (cells[2].innerText == '😘' && cells[5].innerText == '😘' && cells[8].innerText == '😘')
-        || (cells[0].innerText == '😘' && cells[4].innerText == '😘' && cells[8].innerText == '😘')
-        || (cells[2].innerText == '😘' && cells[4].innerText == '😘' && cells[6].innerText == '😘')
-    ) {
+// Define the winning combinations
+const winningCombinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+];
 
+// Function to check if a player has won
+function checkWin(player) {
+    return winningCombinations.some(combination => {
+        return combination.every(index => cells[index].innerText === player);
+    });
+}
+
+// Main win function
+function win() {
+    if (checkWin('💙')) {
+        return 1;
+    } else if (checkWin('😘')) {
         return 2;
     }
     return 0;

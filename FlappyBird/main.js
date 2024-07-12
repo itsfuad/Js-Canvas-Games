@@ -115,7 +115,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const gameOver = () => {
+function gameOver(){
      
     if (score > highscore){ 
         highscore = score;
@@ -191,7 +191,7 @@ const cloud2 = new Image();
 cloud2.src = 'src/cloud-small-small.png';
 
 let cx1 = canvas.width, cy1 = 0, cx2 = 0, cy2 = 0; 
-const createCloud = () => {
+function createCloud(){
     if (cx1 <= -cloud.width) {
         cx1 = canvas.width
         cy1 = Math.floor(Math.random()*canvas.height/2)+20;
@@ -209,7 +209,7 @@ const createCloud = () => {
     ctx.drawImage(cloud2, cx2, cy2);
 }
 
-const gameLoop = () => {
+function gameLoop(){
     if (isGameOver) return;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     currentTime = Date.now();
