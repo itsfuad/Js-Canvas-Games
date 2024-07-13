@@ -11,7 +11,6 @@ let paused = false;
 let deltatime, currentTime, lastTime = Date.now();
 let gravity = 3;
 let levels = 1;
-let frame;
 
 class OBJECT {
     constructor(canvas){
@@ -229,7 +228,7 @@ function gameLoop(){
     ctx.fillText("Score: "+Math.floor(score).toString(), 10, 20);
     ctx.fillText("High Score: "+Math.floor(highscore), 10, 40);
      
-    frame = requestAnimationFrame(gameLoop);
+    requestAnimationFrame(gameLoop);
 }
 
 const pausebtn = document.getElementsByClassName('pause')[0];
@@ -243,7 +242,6 @@ pausebtn.addEventListener('click',()=>{
 const playbtn = document.getElementById('play');
 
 const play = ()=>{
-    cancelAnimationFrame(frame);
     paused = false;
     initScene();
     gameLoop();
