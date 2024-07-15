@@ -143,10 +143,11 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-async function handleJump(){
+function handleJump() {
     jump = true;
-    await sleep(120);
-    jump = false;
+    setTimeout(() => {
+        jump = false;
+    }, 120);
 }
 
 document.addEventListener("click", () => {
