@@ -110,10 +110,6 @@ class Bar extends OBJECT{
     }
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 function gameOver(){
      
     if (score > highscore){ 
@@ -208,6 +204,10 @@ function createCloud(){
     ctx.drawImage(cloud, cx1, cy1);
     ctx.drawImage(cloud2, cx2, cy2);
 }
+
+
+
+
 
 function gameLoop(){
     if (isGameOver) return;
